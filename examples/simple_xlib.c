@@ -62,7 +62,7 @@ int main()
     1                   /* count */
   );
 
-  /* Message we want to draw into the window. */
+  /* Message to draw in the window. */
   const char *title = "X11/Xlib window example";
 
   /* Set the window title. */
@@ -150,7 +150,7 @@ int main()
     }
   }
 
-  /* Hide (unmap) the window. */
+  /* Unmap (hide) the window. */
   XUnmapWindow(display, window);
 
   /* Destroy the window. */
