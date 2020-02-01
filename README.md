@@ -1,6 +1,6 @@
 # LAK132's Graphics Notebook
 
-See [releases](https://github.com/graphics-notebook/releases) for compiled
+See [releases](https://github.com/LAK132/graphics-notebook/releases) for compiled
 PDFs.
 
 # Dependencies
