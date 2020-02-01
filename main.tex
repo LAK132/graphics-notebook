@@ -1,4 +1,6 @@
 \documentclass{article}
+\usepackage{verbatim}
+% Limit \verbatiminput files to 65 columns.
 
 \title{LAK132's Graphics Notebook}
 \author{LAK132}
@@ -23,8 +25,15 @@ and continues to be used on modern *nix machines today.
 \subsection{Xlib}
 \label{subsec:xlib}
 
+Xlib is one of the most straight forward libraries for managing windows
+(sec~\ref{subsec:simple_xlib.c}).
+
 \subsection{XCB}
 \label{subsec:xcb}
+
+The primary difference between Xlib and XCB is that Xlib must do a round trip
+to the X server after every command,
+whereas XCB buffers commands asynchronously.
 
 % -----------------------------------------------------------------------------
 % Wayland
@@ -73,6 +82,22 @@ Programs must use the Win32 API to open graphical windows.
 
 \section{DirectX}
 \label{sec:directx}
+
+% -----------------------------------------------------------------------------
+% Examples
+% -----------------------------------------------------------------------------
+
+\section{Examples}
+\label{sec:examples}
+
+\subsection{simple\_xlib.c}
+\label{subsec:simple_xlib.c}
+
+X11 example using Xlib to open a window and draw some rectangles and a string
+in it:
+
+\verbatiminput{examples/simple_xlib.c}
+
 
 \end{document}
 
