@@ -33,7 +33,7 @@ Xlib is one of the most straight forward libraries for managing windows
 
 The primary difference between Xlib and XCB is that Xlib must do a round trip
 to the X server after every command,
-whereas XCB buffers commands asynchronously.
+whereas XCB buffers commands asynchronously (sec~\ref{subsec:simple_xcb.c}).
 
 % -----------------------------------------------------------------------------
 % Wayland
@@ -98,6 +98,14 @@ X11 example using Xlib to open a window and draw some rectangles and a string
 in it:
 
 \verbatiminput{examples/simple_xlib.c}
+
+\subsection{simple\_xcb.c}
+\label{subsec:simple_xcb.c}
+
+X11 example using XCB to open a window and draw some rectangles and a string
+in it:
+
+\verbatiminput{examples/simple_xcb.c}
 
 \subsection{simple\_win32.cpp}
 \label{subsec:simple_win32.cpp}
