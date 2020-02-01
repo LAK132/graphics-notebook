@@ -9,3 +9,7 @@
 *.toc
 *.pdf
 *.elf
+*.pdb
+*.obj
+*.ilk
+*.exe
