@@ -1,6 +1,7 @@
 \documentclass{article}
 \usepackage{verbatim} % Limit \verbatiminput files to 65 columns.
 \usepackage{xcolor} % For \pagecolor and \color.
+\usepackage{hyperref} % For \url and \href
 
 \title{LAK132's Graphics Notebook}
 \author{LAK132}
@@ -44,6 +45,8 @@ whereas XCB buffers commands asynchronously (sec~\ref{subsec:simple_xcb.c}).
 
 Wayland is a windowing system developed by freedesktop.org which is intended to
 replace the ancient X windowing system.
+Wayland isn't widely supported yet.
+(sec~\ref{subsec:simple_wayland.c})
 
 % -----------------------------------------------------------------------------
 % Win32
@@ -106,6 +109,14 @@ X11 example using XCB to open a window and draw some rectangles and a string
 in it:
 
 \verbatiminput{examples/simple_xcb.c}
+
+\subsection{simple\_wayland.c}
+\label{subsec:simple_wayland.c}
+
+Untested Wayland example (I don't have a computer that runs Wayland).
+Based on \url{https://github.com/eyelash/tutorials/blob/master/wayland-egl.c}.
+
+\verbatiminput{examples/simple_wayland.c}
 
 \subsection{simple\_win32.cpp}
 \label{subsec:simple_win32.cpp}
