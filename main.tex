@@ -50,24 +50,31 @@ depends on nothing but the OS it is running under, a windowing library and
 optionally a graphics acceleration library
 
 % -----------------------------------------------------------------------------
+% Windowing
+% -----------------------------------------------------------------------------
+
+\section{Windowing}
+\label{sec:windowing}
+
+% -----------------------------------------------------------------------------
 % X11
 % -----------------------------------------------------------------------------
 
-\section{X11}
-\label{sec:x11}
+\subsection{X11}
+\label{subsec:x11}
 
 X11 is the 11th iteration of the X windowing system.
 The X windowing system was developed for Unix workstations in the 1980s,
 and continues to be used on modern *nix machines today.
 
-\subsection{Xlib}
-\label{subsec:xlib}
+\subsubsection{Xlib}
+\label{subsubsec:xlib}
 
 Xlib is one of the most straight forward libraries for managing windows
 (sec~\ref{subsec:simple_xlib.c}).
 
-\subsection{XCB}
-\label{subsec:xcb}
+\subsubsection{XCB}
+\label{subsubsec:xcb}
 
 The primary difference between Xlib and XCB is that Xlib must do a round trip
 to the X server after every command,
@@ -77,8 +84,8 @@ whereas XCB buffers commands asynchronously (sec~\ref{subsec:simple_xcb.c}).
 % Wayland
 % -----------------------------------------------------------------------------
 
-\section{Wayland}
-\label{sec:wayland}
+\subsection{Wayland}
+\label{subsec:wayland}
 
 Wayland is a windowing system developed by freedesktop.org which is intended to
 replace the ancient X windowing system.
@@ -89,40 +96,75 @@ Wayland isn't widely supported yet.
 % Win32
 % -----------------------------------------------------------------------------
 
-\section{Win32}
-\label{sec:win32}
+\subsection{Win32}
+\label{subsec:win32}
 
 Win32 is the API programs use to talk to recent Windows operating systems.
 Programs must use the Win32 API to open graphical windows
 (sec~\ref{subsec:simple_win32.cpp}).
 
 % -----------------------------------------------------------------------------
-% Software rasterisation
+% Rendering
 % -----------------------------------------------------------------------------
 
-\section{Software rasterisation}
-\label{sec:software-rasterisation}
+\section{Rendering}
+\label{sec:rendering}
 
 % -----------------------------------------------------------------------------
 % OpenGL
 % -----------------------------------------------------------------------------
 
-\section{OpenGL}
-\label{sec:opengl}
+\subsection{OpenGL}
+\label{subsec:opengl}
 
 % -----------------------------------------------------------------------------
 % Vulkan
 % -----------------------------------------------------------------------------
 
-\section{Vulkan}
-\label{sec:vulkan}
+\subsection{Vulkan}
+\label{subsec:vulkan}
 
 % -----------------------------------------------------------------------------
 % DirectX
 % -----------------------------------------------------------------------------
 
-\section{DirectX}
-\label{sec:directx}
+\subsection{DirectX}
+\label{subsec:directx}
+
+% -----------------------------------------------------------------------------
+% Direct3D
+% -----------------------------------------------------------------------------
+
+\subsection{Direct3D}
+\label{subsec:direct3d}
+
+% -----------------------------------------------------------------------------
+% Direct2D
+% -----------------------------------------------------------------------------
+
+\subsection{Direct2D}
+\label{subsec:direct2d}
+
+% -----------------------------------------------------------------------------
+% GDI
+% -----------------------------------------------------------------------------
+
+\subsection{GDI}
+\label{subsec:windows-gdi}
+
+% -----------------------------------------------------------------------------
+% Software rasterisation
+% -----------------------------------------------------------------------------
+
+\subsection{Software rasterisation}
+\label{subsec:software-rasterisation}
+
+% -----------------------------------------------------------------------------
+% Xlib blitting
+% -----------------------------------------------------------------------------
+
+\subsubsection{Xlib blitting}
+\label{subsubsection:xlib-blitting}
 
 % -----------------------------------------------------------------------------
 % Examples
