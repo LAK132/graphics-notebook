@@ -242,14 +242,14 @@ Programs must use the Win32 API to open graphical windows
 \subsubsection{make.bat}
 \label{subsubsect:make.bat}
 
-This script is intended to minimally replicate GNU-Make.
+This script is intended to minimally replicate GNU-Make on Windows.
 
 \example[\tiny]{command.com}{make.bat}
 
 \subsubsection{makelist.bat}
 \label{subsubsect:makelist.bat}
 
-This script is intented to minimally replace a GNU-Make Makefile.
+This script is intented to minimally replicate a GNU-Make Makefile on Windows.
 
 \example[\tiny]{command.com}{makelist.bat}
 
@@ -261,7 +261,7 @@ This script is intented to minimally replace a GNU-Make Makefile.
 \label{subsec:simple_xlib}
 
 X11 example using Xlib to open a window and draw some rectangles and a string
-in it:
+in it.
 
 \example{C}{simple_xlib.c}
 
@@ -272,7 +272,8 @@ in it:
 \subsection{blit\_xlib}
 \label{subsec:blit_xlib}
 
-X11 example using Xlib to open a window and blit an image into it:
+X11 example using Xlib to open a window and blit an image into it at the
+cursor. \verb|-DSTATIC_IMAGE_BLIT| for statically allocated pixel buffer.
 
 \example{C}{blit_xlib.c}
 
@@ -284,9 +285,37 @@ X11 example using Xlib to open a window and blit an image into it:
 \label{subsec:simple_xcb}
 
 X11 example using XCB to open a window and draw some rectangles and a string
-in it:
+in it.
 
 \example{C}{simple_xcb.c}
+
+% -----------------------------------------------------------------------------
+% blit_direct_xcb
+% -----------------------------------------------------------------------------
+
+\subsection{blit\_direct\_xcb}
+\label{subsec:blit_direct_xcb}
+
+X11 example using XCB to open a window and blit an image into it at the
+cursor.
+This example directly blits from the pixel buffer to the window.
+
+\example{C}{blit_direct_xcb.c}
+
+% -----------------------------------------------------------------------------
+% blit_pixmap_xcb
+% -----------------------------------------------------------------------------
+
+\subsection{blit\_pixmap\_xcb}
+\label{subsec:blit_pixmap_xcb}
+
+X11 example using XCB to open a window and blit an image into it at the
+cursor.
+This example blits the pixel buffer to a pixmap,
+then blits the pixmap to the window.
+\verb|-DUSE_XCB_IMAGE| to use \verb|xcb/xcb_image.h|.
+
+\example{C}{blit_pixmap_xcb.c}
 
 % -----------------------------------------------------------------------------
 % simple_wayland
@@ -307,7 +336,7 @@ Based on \url{https://github.com/eyelash/tutorials/blob/master/wayland-egl.c}.
 \subsection{simple\_win32}
 \label{subsec:simple_win32}
 
-Win32 example to open a window and draw some rectangles and a string in it:
+Win32 example to open a window and draw some rectangles and a string in it.
 
 \example{C++}{simple_win32.cpp}
 

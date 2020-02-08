@@ -83,14 +83,14 @@ int main()
         /* Set the foreground colour to black. */
         XSetForeground(
           display,                    /* display */
-          DefaultGC(display, screen), /* graphics controller */
+          DefaultGC(display, screen), /* graphics context */
           BlackPixel(display, screen) /* colour */
         );
         /* Draw a black rectangle. */
         XFillRectangle(
           display,                    /* display */
           window,                     /* drawable */
-          DefaultGC(display, screen), /* graphics controller */
+          DefaultGC(display, screen), /* graphics context */
           10,                         /* x */
           10,                         /* y */
           180,                        /* width */
@@ -100,14 +100,14 @@ int main()
         /* Set the foreground colour to white. */
         XSetForeground(
           display,                    /* display */
-          DefaultGC(display, screen), /* graphics controller */
+          DefaultGC(display, screen), /* graphics context */
           WhitePixel(display, screen) /* colour */
         );
         /* Draw a white rectangle. */
         XFillRectangle(
           display,                    /* display */
           window,                     /* drawable */
-          DefaultGC(display, screen), /* graphics controller */
+          DefaultGC(display, screen), /* graphics context */
           20,                         /* x */
           20,                         /* y */
           160,                        /* width */
@@ -117,14 +117,14 @@ int main()
         /* Set the foreground colour to black. */
         XSetForeground(
           display,                    /* display */
-          DefaultGC(display, screen), /* graphics controller */
+          DefaultGC(display, screen), /* graphics context */
           BlackPixel(display, screen) /* colour */
         );
         /* Draw the title string in the window. */
         XDrawString(
           display,                    /* display */
           window,                     /* drawable */
-          DefaultGC(display, screen), /* graphics controller */
+          DefaultGC(display, screen), /* graphics context */
           30,                         /* x */
           100,                        /* y */
           title,                      /* string */

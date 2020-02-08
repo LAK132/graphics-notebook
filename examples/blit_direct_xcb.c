@@ -103,7 +103,9 @@ int main()
   {
     uint32_t values[] = {
       screen->white_pixel,
-      XCB_EVENT_MASK_EXPOSURE | XCB_EVENT_MASK_KEY_PRESS
+      XCB_EVENT_MASK_EXPOSURE |
+      XCB_EVENT_MASK_KEY_PRESS |
+      XCB_EVENT_MASK_POINTER_MOTION
     };
     xcb_create_window(
       connection,                             /* connection */
@@ -170,6 +172,21 @@ int main()
     title                   /* data */
   );
 
+  uint8_t pixels[200 * 200 * 4];
+
+  for (int y = 0; y < 200; ++y)
+  {
+    for (int x = 0; x < 200; ++x)
+    {
+      pixels[(((y * 200) + x) * 4) + 0] = x;    /* blue */
+      pixels[(((y * 200) + x) * 4) + 1] = y;    /* green */
+      pixels[(((y * 200) + x) * 4) + 2] = 255;  /* red */
+      pixels[(((y * 200) + x) * 4) + 3] = 0;    /* unused? */
+    }
+  }
+
+  /* TODO: convert image to screen->root_depth */
+
   /* Flush the commands to the X server. */
   xcb_flush(connection);
 
@@ -181,6 +198,39 @@ int main()
 
     switch (event->response_type & ~0x80)
     {
+      case XCB_MOTION_NOTIFY: {
+        xcb_motion_notify_event_t *e =
+          (xcb_motion_notify_event_t*)event;
+
+        xcb_rectangle_t rect;
+        rect.x = rect.y = 0;
+        rect.width = rect.height = 200;
+        xcb_poly_fill_rectangle(
+          connection,     /* connection */
+          window,         /* drawable */
+          black_gcontext, /* graphics context */
+          1,              /* rectangles length */
+          &rect           /* rectangles */
+        );
+
+        xcb_put_image_checked(
+          connection,                 /* connection */
+          XCB_IMAGE_FORMAT_Z_PIXMAP,  /* format */
+          window,                     /* drawable */
+          black_gcontext,             /* graphics context */
+          200,                        /* width */
+          200,                        /* height */
+          e->event_x,                 /* destination x */
+          e->event_y,                 /* destination y */
+          0,                          /* left pad */
+          24,                         /* depth */
+          200 * 200 * 4,              /* data length (bytes) */
+          pixels                      /* data */
+        );
+
+        xcb_flush(connection);
+      } break;
+
       case XCB_EXPOSE: {
         xcb_rectangle_t rect;
         rect.x = rect.y = 0;
@@ -188,39 +238,9 @@ int main()
         xcb_poly_fill_rectangle(
           connection,     /* connection */
           window,         /* drawable */
-          white_gcontext, /* graphics context */
-          1,              /* rectangles length */
-          &rect           /* rectangles */
-        );
-
-        rect.x = rect.y = 10;
-        rect.width = rect.height = 180;
-        xcb_poly_fill_rectangle(
-          connection,     /* connection */
-          window,         /* drawable */
           black_gcontext, /* graphics context */
           1,              /* rectangles length */
           &rect           /* rectangles */
-        );
-
-        rect.x = rect.y = 20;
-        rect.width = rect.height = 160;
-        xcb_poly_fill_rectangle(
-          connection,     /* connection */
-          window,         /* drawable */
-          white_gcontext, /* graphics context */
-          1,              /* rectangles length */
-          &rect           /* rectangles */
-        );
-
-        xcb_image_text_8(
-          connection,     /* connection */
-          strlen(title),  /* string length */
-          window,         /* drawable */
-          black_gcontext, /* graphics context */
-          30,             /* x */
-          100,            /* y */
-          title           /* string */
         );
 
         xcb_flush(connection);
@@ -245,6 +265,8 @@ int main()
 
   /* Unmap (hide) the window. */
   xcb_unmap_window(connection, window);
+
+  // xcb_free_pixmap(connection, pixmap);
 
   /* Free the graphics contexts. */
   xcb_free_gc(connection, black_gcontext);
