@@ -21,6 +21,7 @@ Status CreateImage(
   int bytes_per_line)
 {
   if (image == NULL ||
+      display == NULL ||
       depth == 0 ||
       depth > 32 ||
       offset < 0 ||
@@ -308,14 +309,14 @@ int main()
         /* Set the foreground colour to black. */
         XSetForeground(
           display,                    /* display */
-          DefaultGC(display, screen), /* graphics controller */
+          DefaultGC(display, screen), /* graphics context */
           BlackPixel(display, screen) /* colour */
         );
         /* Draw a black rectangle. */
         XFillRectangle(
           display,                    /* display */
           window,                     /* drawable */
-          DefaultGC(display, screen), /* graphics controller */
+          DefaultGC(display, screen), /* graphics context */
           0,                          /* x */
           0,                          /* y */
           200,                        /* width */
@@ -330,7 +331,7 @@ int main()
         XPutImage(
           display,                    /* display */
           window,                     /* window */
-          DefaultGC(display, screen), /* graphics controller */
+          DefaultGC(display, screen), /* graphics context */
           img,                        /* image */
           0,                          /* source x */
           0,                          /* source y */
@@ -346,14 +347,14 @@ int main()
         /* Set the foreground colour to black. */
         XSetForeground(
           display,                    /* display */
-          DefaultGC(display, screen), /* graphics controller */
+          DefaultGC(display, screen), /* graphics context */
           BlackPixel(display, screen) /* colour */
         );
         /* Draw a black rectangle. */
         XFillRectangle(
           display,                    /* display */
           window,                     /* drawable */
-          DefaultGC(display, screen), /* graphics controller */
+          DefaultGC(display, screen), /* graphics context */
           0,                          /* x */
           0,                          /* y */
           200,                        /* width */
