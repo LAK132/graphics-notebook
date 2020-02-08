@@ -190,7 +190,8 @@ int main()
   );
 
   /* Select the kind of events we are interestedn in. */
-  long event_mask = ExposureMask | KeyPressMask;
+  long event_mask =
+    ExposureMask | KeyPressMask | PointerMotionMask;
   XSelectInput(display, window, event_mask);
 
   /* Map (show) the window. */
@@ -302,14 +303,30 @@ int main()
 
     switch (event.type)
     {
-      /* Draw/redraw the window. */
-      case Expose: {
+      /* User moved the mouse over the window. */
+      case MotionNotify: {
+        /* Set the foreground colour to black. */
+        XSetForeground(
+          display,                    /* display */
+          DefaultGC(display, screen), /* graphics controller */
+          BlackPixel(display, screen) /* colour */
+        );
+        /* Draw a black rectangle. */
+        XFillRectangle(
+          display,                    /* display */
+          window,                     /* drawable */
+          DefaultGC(display, screen), /* graphics controller */
+          0,                          /* x */
+          0,                          /* y */
+          200,                        /* width */
+          200                         /* height */
+        );
         #ifdef STATIC_IMAGE_BLIT
         XImage *img = &image;
         #else
         XImage *img = image;
         #endif
-        /* Blit image to the screen. */
+        /* Blit image to the screen at the cursor. */
         XPutImage(
           display,                    /* display */
           window,                     /* window */
@@ -317,8 +334,28 @@ int main()
           img,                        /* image */
           0,                          /* source x */
           0,                          /* source y */
-          0,                          /* destination x */
-          0,                          /* destination y */
+          event.xmotion.x,            /* destination x */
+          event.xmotion.y,            /* destination y */
+          200,                        /* width */
+          200                         /* height */
+        );
+      } break;
+
+      /* Draw/redraw the window. */
+      case Expose: {
+        /* Set the foreground colour to black. */
+        XSetForeground(
+          display,                    /* display */
+          DefaultGC(display, screen), /* graphics controller */
+          BlackPixel(display, screen) /* colour */
+        );
+        /* Draw a black rectangle. */
+        XFillRectangle(
+          display,                    /* display */
+          window,                     /* drawable */
+          DefaultGC(display, screen), /* graphics controller */
+          0,                          /* x */
+          0,                          /* y */
           200,                        /* width */
           200                         /* height */
         );
