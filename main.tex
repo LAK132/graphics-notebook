@@ -1,7 +1,18 @@
 \documentclass{article}
-\usepackage{verbatim} % Limit \verbatiminput files to 65 columns.
+\usepackage{listings} % For \lstset and \lstinputlisting.
 \usepackage{xcolor} % For \pagecolor and \color.
 \usepackage{hyperref} % For \url and \href
+
+\definecolor{pale-red}{HTML}{FF5555}
+\definecolor{dark-red}{HTML}{802525}
+
+\newcommand{\example}[3][\scriptsize]{
+\lstset{basicstyle=#1\ttfamily,
+        language=#2,
+        keywordstyle=\color{pale-red},
+        stringstyle=\bfseries\color{dark-red},
+        identifierstyle=\color{blue}}
+\lstinputlisting{examples/#3}}
 
 \title{LAK132's Graphics Notebook}
 \author{LAK132}
@@ -184,7 +195,7 @@ Programs must use the Win32 API to open graphical windows
 X11 example using Xlib to open a window and draw some rectangles and a string
 in it:
 
-\verbatiminput{examples/simple_xlib.c}
+\example{C}{simple_xlib.c}
 
 \subsection{simple\_xcb.c}
 \label{subsec:simple_xcb.c}
@@ -192,7 +203,7 @@ in it:
 X11 example using XCB to open a window and draw some rectangles and a string
 in it:
 
-\verbatiminput{examples/simple_xcb.c}
+\example{C}{simple_xcb.c}
 
 \subsection{simple\_wayland.c}
 \label{subsec:simple_wayland.c}
@@ -200,13 +211,13 @@ in it:
 Untested Wayland example (I don't have a computer that runs Wayland).
 Based on \url{https://github.com/eyelash/tutorials/blob/master/wayland-egl.c}.
 
-\verbatiminput{examples/simple_wayland.c}
+\example{C}{simple_wayland.c}
 
 \subsection{simple\_win32.cpp}
 \label{subsec:simple_win32.cpp}
 
 Win32 example to open a window and draw some rectangles and a string in it:
 
-\verbatiminput{examples/simple_win32.cpp}
+\example{C++}{simple_win32.cpp}
 
 \end{document}
