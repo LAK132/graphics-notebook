@@ -1,11 +1,11 @@
 simple_xlib.elf: simple_xlib.c Makefile
-	gcc $< -o $@ -lX11 -ldl
+	gcc $< -o $@ -lX11
 
 simple_xcb.elf: simple_xcb.c Makefile
-	gcc $< -o $@ -lX11 -lxcb -ldl
+	gcc $< -o $@ -lX11 -lxcb
 
 simple_wayland.elf: simple_wayland.c Makefile
-	gcc $< -o $@ -lwayland-client -ldl
+	gcc $< -o $@ -lwayland-client
 
 clean:
 	rm *.elf
