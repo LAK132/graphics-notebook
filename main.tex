@@ -6,13 +6,15 @@
 \definecolor{pale-red}{HTML}{FF5555}
 \definecolor{dark-red}{HTML}{802525}
 
-\newcommand{\example}[3][\scriptsize]{
+\newcommand{\example}[3][\footnotesize]{
 \lstset{basicstyle=#1\ttfamily,
         language=#2,
         keywordstyle=\color{pale-red},
         stringstyle=\bfseries\color{dark-red},
         identifierstyle=\color{blue}}
 \lstinputlisting{examples/#3}}
+
+\newcommand{\textem}[1]{\textit{\textbf{#1}}}
 
 \title{LAK132's Graphics Notebook}
 \author{LAK132}
@@ -34,7 +36,7 @@ I do not make any claim that anything here is factual,
 please take everything with a grain of salt.
 
 With that said, I am publishing this notebook in the hope that it may help
-others navigate the \textit{\textbf{utter hellscape}} that is modern graphical
+others navigate the \textem{utter hellscape} that is modern graphical
 software design.
 
 \pagebreak
@@ -48,19 +50,48 @@ software design.
 \section{Preable}
 \label{sec:preamble}
 
+\subsection{Dependencies}
+\label{subsect:dependencies}
+
 Dependencies on modern computers are hell.
 There's no simpler way to put it.
 Sure, depending on some kinds of libraries is a neccesety given the
 unfathomable number of hardware combinations used in modern computers.
-But we shouldn't be using this as an exuse librarify and then dynamic link to
+But we shouldn't be using this as an excuse librarify and then dynamic link to
 every single thing possible.
 \\
 My goal here is to explore the process of building graphical programs for
 modern computers with the fewest number of dependencies.
 The good news is that as far as I can tell,
-\textit{\textbf{it is entirely possible}} to build simple modern software that
+\textem{it is entirely possible} to build simple modern software that
 depends on nothing but the OS it is running under, a windowing library and
 optionally a graphics acceleration library
+
+\subsection{Abstractions}
+\label{subsec:abstractions}
+
+Any attempt to reduce the number of dependencies we need will likely results in
+a reduction in the number of abstractions we have to deal with.
+Academia would likely tell you this is a bad idea,
+that abstractions are required so that mere humans could have a fighting chance
+of understanding the code they write.
+\\
+This is false.
+I have dealt with code where reducing from 4 classes,
+each abstracting a particular behaviour,
+to 1 class with a couple of conditional parameters has \textem{increased}
+understandability of the code over all.
+\\
+Abstractions have their place though.
+If we want our code to be ``portable'',
+then it is neccesary that we abstract away the \textit{commonanlities} of the
+systems we wish to target.
+For example, Xlib (\ref{subsubsec:xlib}), XCB (\ref{subsubsec:xcb}) and Win32
+(\ref{subsec:win32}) all use a similar process for obtaining a connection to
+the display, and getting a graphics context for the display.
+We could easily create a ``generic'' interface for this that our application
+code targets, then have platform dependant code that translates this (with
+minimal overhead) into the platform specific interface.
 
 % -----------------------------------------------------------------------------
 % Windowing
@@ -85,14 +116,14 @@ and continues to be used on modern *nix machines today.
 \label{subsubsec:xlib}
 
 Xlib is one of the most straight forward libraries for managing windows
-(sec~\ref{subsec:simple_xlib.c}).
+(sec~\ref{subsec:simple_xlib}).
 
 \subsubsection{XCB}
 \label{subsubsec:xcb}
 
 The primary difference between Xlib and XCB is that Xlib must do a round trip
 to the X server after every command,
-whereas XCB buffers commands asynchronously (sec~\ref{subsec:simple_xcb.c}).
+whereas XCB buffers commands asynchronously (sec~\ref{subsec:simple_xcb}).
 
 % -----------------------------------------------------------------------------
 % Wayland
@@ -104,7 +135,7 @@ whereas XCB buffers commands asynchronously (sec~\ref{subsec:simple_xcb.c}).
 Wayland is a windowing system developed by freedesktop.org which is intended to
 replace the ancient X windowing system.
 Wayland isn't widely supported yet.
-(sec~\ref{subsec:simple_wayland.c})
+(sec~\ref{subsec:simple_wayland})
 
 % -----------------------------------------------------------------------------
 % Win32
@@ -115,7 +146,7 @@ Wayland isn't widely supported yet.
 
 Win32 is the API programs use to talk to recent Windows operating systems.
 Programs must use the Win32 API to open graphical windows
-(sec~\ref{subsec:simple_win32.cpp}).
+(sec~\ref{subsec:simple_win32}).
 
 % -----------------------------------------------------------------------------
 % Rendering
@@ -189,6 +220,10 @@ Programs must use the Win32 API to open graphical windows
 \section{Examples}
 \label{sec:examples}
 
+% -----------------------------------------------------------------------------
+% Build scripts for GNU toolchain
+% -----------------------------------------------------------------------------
+
 \subsection{Build scripts for GNU toolchain}
 \label{subsec:build-scripts-gnu}
 
@@ -196,6 +231,10 @@ Programs must use the Win32 API to open graphical windows
 \label{subsubsec:makefile}
 
 \example{Make}{Makefile}
+
+% -----------------------------------------------------------------------------
+% Build scripts for MSVC toolchain
+% -----------------------------------------------------------------------------
 
 \subsection{Build scripts for MSVC toolchain}
 \label{subsec:build-scripts-msvc}
@@ -214,32 +253,59 @@ This script is intented to minimally replace a GNU-Make Makefile.
 
 \example[\tiny]{command.com}{makelist.bat}
 
-\subsection{simple\_xlib.c}
-\label{subsec:simple_xlib.c}
+% -----------------------------------------------------------------------------
+% simple_xlib
+% -----------------------------------------------------------------------------
+
+\subsection{simple\_xlib}
+\label{subsec:simple_xlib}
 
 X11 example using Xlib to open a window and draw some rectangles and a string
 in it:
 
 \example{C}{simple_xlib.c}
 
-\subsection{simple\_xcb.c}
-\label{subsec:simple_xcb.c}
+% -----------------------------------------------------------------------------
+% blit_xlib
+% -----------------------------------------------------------------------------
+
+\subsection{blit\_xlib}
+\label{subsec:blit_xlib}
+
+X11 example using Xlib to open a window and blit an image into it:
+
+\example{C}{blit_xlib.c}
+
+% -----------------------------------------------------------------------------
+% simple_xcb
+% -----------------------------------------------------------------------------
+
+\subsection{simple\_xcb}
+\label{subsec:simple_xcb}
 
 X11 example using XCB to open a window and draw some rectangles and a string
 in it:
 
 \example{C}{simple_xcb.c}
 
-\subsection{simple\_wayland.c}
-\label{subsec:simple_wayland.c}
+% -----------------------------------------------------------------------------
+% simple_wayland
+% -----------------------------------------------------------------------------
+
+\subsection{simple\_wayland}
+\label{subsec:simple_wayland}
 
 Untested Wayland example (I don't have a computer that runs Wayland).
 Based on \url{https://github.com/eyelash/tutorials/blob/master/wayland-egl.c}.
 
 \example{C}{simple_wayland.c}
 
-\subsection{simple\_win32.cpp}
-\label{subsec:simple_win32.cpp}
+% -----------------------------------------------------------------------------
+% simple_win32
+% -----------------------------------------------------------------------------
+
+\subsection{simple\_win32}
+\label{subsec:simple_win32}
 
 Win32 example to open a window and draw some rectangles and a string in it:
 
