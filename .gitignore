@@ -14,3 +14,5 @@
 *.ilk
 *.exe
 *.out
+*.o
+*.obj
