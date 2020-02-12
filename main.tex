@@ -116,14 +116,14 @@ and continues to be used on modern *nix machines today.
 \label{subsubsec:xlib}
 
 Xlib is one of the most straight forward libraries for managing windows
-(sec~\ref{subsec:simple_xlib}).
+(sec~\ref{subsec:simple/xlib}).
 
 \subsubsection{XCB}
 \label{subsubsec:xcb}
 
 The primary difference between Xlib and XCB is that Xlib must do a round trip
 to the X server after every command,
-whereas XCB buffers commands asynchronously (sec~\ref{subsec:simple_xcb}).
+whereas XCB buffers commands asynchronously (sec~\ref{subsec:simple/xcb}).
 
 % -----------------------------------------------------------------------------
 % Wayland
@@ -135,7 +135,7 @@ whereas XCB buffers commands asynchronously (sec~\ref{subsec:simple_xcb}).
 Wayland is a windowing system developed by freedesktop.org which is intended to
 replace the ancient X windowing system.
 Wayland isn't widely supported yet.
-(sec~\ref{subsec:simple_wayland})
+(sec~\ref{subsec:simple/wayland})
 
 % -----------------------------------------------------------------------------
 % Win32
@@ -146,7 +146,7 @@ Wayland isn't widely supported yet.
 
 Win32 is the API programs use to talk to recent Windows operating systems.
 Programs must use the Win32 API to open graphical windows
-(sec~\ref{subsec:simple_win32}).
+(sec~\ref{subsec:simple/win32}).
 
 % -----------------------------------------------------------------------------
 % Rendering
@@ -267,16 +267,16 @@ This script is intented to minimally replicate a GNU-Make Makefile on Windows.
 \example[\tiny]{command.com}{makelist.bat}
 
 % -----------------------------------------------------------------------------
-% simple_xlib
+% simple/xlib
 % -----------------------------------------------------------------------------
 
-\subsection{simple\_xlib}
-\label{subsec:simple_xlib}
+\subsection{simple/xlib}
+\label{subsec:simple/xlib}
 
 X11 example using Xlib to open a window and draw some rectangles and a string
 in it.
 
-\example{C}{simple_xlib.c}
+\example{C}{simple/xlib.c}
 
 % -----------------------------------------------------------------------------
 % blit_xlib
@@ -291,16 +291,16 @@ cursor. \verb|-DSTATIC_IMAGE_BLIT| for statically allocated pixel buffer.
 \example{C}{blit_xlib.c}
 
 % -----------------------------------------------------------------------------
-% simple_xcb
+% simple/xcb
 % -----------------------------------------------------------------------------
 
-\subsection{simple\_xcb}
-\label{subsec:simple_xcb}
+\subsection{simple/xcb}
+\label{subsec:simple/xcb}
 
 X11 example using XCB to open a window and draw some rectangles and a string
 in it.
 
-\example{C}{simple_xcb.c}
+\example{C}{simple/xcb.c}
 
 % -----------------------------------------------------------------------------
 % blit_direct_xcb
@@ -331,26 +331,29 @@ then blits the pixmap to the window.
 \example{C}{blit_pixmap_xcb.c}
 
 % -----------------------------------------------------------------------------
-% simple_wayland
+% simple/wayland
 % -----------------------------------------------------------------------------
 
-\subsection{simple\_wayland}
-\label{subsec:simple_wayland}
+\subsection{simple/wayland}
+\label{subsec:simple/wayland}
 
 Untested Wayland example (I don't have a computer that runs Wayland).
 Based on \url{https://github.com/eyelash/tutorials/blob/master/wayland-egl.c}.
 
-\example{C}{simple_wayland.c}
+\example{C}{simple/wayland.c}
 
 % -----------------------------------------------------------------------------
-% simple_win32
+% simple/win32
 % -----------------------------------------------------------------------------
 
-\subsection{simple\_win32}
-\label{subsec:simple_win32}
+\subsection{simple/win32}
+\label{subsec:simple/win32}
 
+Compiling on Linux
+\url{https://eggplant.pro/blog/writing-win32-applications-with-mingw-and-wine/}
+\\
 Win32 example to open a window and draw some rectangles and a string in it.
 
-\example{C++}{simple_win32.cpp}
+\example{C++}{simple/win32.cpp}
 
 \end{document}
