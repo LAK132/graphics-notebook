@@ -20,6 +20,18 @@ blit/static_xlib.elf: blit/xlib.c Makefile
 blit_static_xlib: blit/xlib.elf
 	./$<
 
+lak_window_xlib.o: lak_window/lak_window_xlib.c Makefile
+	gcc -Wall -c $< -o $@ -lX11
+
+lak_memory_linux.o: lak_memory/lak_memory_crt.c Makefile
+	gcc -Wall -c $< -o $@
+
+library/xlib.elf: library/xlib.c lak_window_xlib.o lak_memory_linux.o Makefile
+	gcc -Wall $< lak_window_xlib.o lak_memory_linux.o -o $@ -lX11
+
+library_xlib: library/xlib.elf
+	./$<
+
 #
 # XCB
 #
@@ -77,6 +89,18 @@ simple/win32.exe: simple/win32.cpp Makefile
 simple_win32: simple/win32.exe
 	wine64 $<
 
+lak_window_win32.o: lak_window/lak_window_win32.cpp Makefile
+	$(win32-g++) -Wall -c $< -o $@
+
+lak_memory_windows.o: lak_memory/lak_memory_crt.c Makefile
+	$(win32-g++) -Wall -c $< -o $@
+
+library/win32.exe: library/win32.cpp lak_window_win32.o lak_memory_windows.o Makefile
+	$(win32-g++) -Wall $< lak_window_win32.o lak_memory_windows.o -o $@
+
+library_win32: library/win32.exe
+	wine64 $<
+
 win32_console.o: win32_console.cpp win32_console.hpp Makefile
 	$(win32-g++) -Wall -c $< -o $@
 
@@ -91,4 +115,4 @@ blit_win32: blit/win32.exe
 #
 
 clean:
-	rm -f $(foreach dir,. simple blit,$(dir)/*.elf $(dir)/*.exe $(dir)/*.o)
+	rm -f $(foreach dir,. simple blit lak_window lak_memory,$(dir)/*.elf $(dir)/*.exe $(dir)/*.o)
