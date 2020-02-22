@@ -212,7 +212,7 @@ Programs must use the Win32 API to open graphical windows
 \subsubsection{Xlib blitting}
 \label{subsubsection:xlib-blitting}
 
-(sec~\ref{subsec:blit_xlib})
+(sec~\ref{subsec:blit/xlib})
 
 % -----------------------------------------------------------------------------
 % XCB blitting
@@ -221,9 +221,9 @@ Programs must use the Win32 API to open graphical windows
 \subsubsection{XCB blitting}
 \label{subsubsection:xcb-blitting}
 
-(sec~\ref{subsec:blit_direct_xcb})
+(sec~\ref{subsec:blit/direct_xcb})
 \\
-(sec~\ref{subsec:blit_pixmap_xcb})
+(sec~\ref{subsec:blit/pixmap_xcb})
 
 % -----------------------------------------------------------------------------
 % Examples
@@ -279,16 +279,16 @@ in it.
 \example{C}{simple/xlib.c}
 
 % -----------------------------------------------------------------------------
-% blit_xlib
+% blit/xlib
 % -----------------------------------------------------------------------------
 
-\subsection{blit\_xlib}
-\label{subsec:blit_xlib}
+\subsection{blit/xlib}
+\label{subsec:blit/xlib}
 
 X11 example using Xlib to open a window and blit an image into it at the
 cursor. \verb|-DSTATIC_IMAGE_BLIT| for statically allocated pixel buffer.
 
-\example{C}{blit_xlib.c}
+\example{C}{blit/xlib.c}
 
 % -----------------------------------------------------------------------------
 % simple/xcb
@@ -303,24 +303,24 @@ in it.
 \example{C}{simple/xcb.c}
 
 % -----------------------------------------------------------------------------
-% blit_direct_xcb
+% blit/direct_xcb
 % -----------------------------------------------------------------------------
 
-\subsection{blit\_direct\_xcb}
-\label{subsec:blit_direct_xcb}
+\subsection{blit/direct\_xcb}
+\label{subsec:blit/direct_xcb}
 
 X11 example using XCB to open a window and blit an image into it at the
 cursor.
 This example directly blits from the pixel buffer to the window.
 
-\example{C}{blit_direct_xcb.c}
+\example{C}{blit/direct_xcb.c}
 
 % -----------------------------------------------------------------------------
-% blit_pixmap_xcb
+% blit/pixmap_xcb
 % -----------------------------------------------------------------------------
 
-\subsection{blit\_pixmap\_xcb}
-\label{subsec:blit_pixmap_xcb}
+\subsection{blit/pixmap\_xcb}
+\label{subsec:blit/pixmap_xcb}
 
 X11 example using XCB to open a window and blit an image into it at the
 cursor.
@@ -328,7 +328,7 @@ This example blits the pixel buffer to a pixmap,
 then blits the pixmap to the window.
 \verb|-DUSE_XCB_IMAGE| to use \verb|xcb/xcb_image.h|.
 
-\example{C}{blit_pixmap_xcb.c}
+\example{C}{blit/pixmap_xcb.c}
 
 % -----------------------------------------------------------------------------
 % simple/wayland
@@ -355,5 +355,17 @@ Compiling on Linux
 Win32 example to open a window and draw some rectangles and a string in it.
 
 \example{C++}{simple/win32.cpp}
+
+% -----------------------------------------------------------------------------
+% blit/win32
+% -----------------------------------------------------------------------------
+
+\subsection{blit/win32}
+\label{subsec:blit/win32}
+
+Compiling on Linux
+\url{https://eggplant.pro/blog/writing-win32-applications-with-mingw-and-wine/}
+
+\example{C++}{blit/win32.cpp}
 
 \end{document}
