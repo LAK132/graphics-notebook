@@ -39,27 +39,23 @@ void paint_window(HWND hwnd)
   EndPaint(hwnd, &ps);
 }
 
-LRESULT CALLBACK WndProc(HWND hwnd, UINT msg,
-                         WPARAM wParam, LPARAM lParam)
+LRESULT CALLBACK WindowProc(
+  HWND hWnd,
+  UINT Msg,
+  WPARAM wParam,
+  LPARAM lParam)
 {
-  switch (msg)
+  switch (Msg)
   {
-    case WM_KEYDOWN:
+    case WM_CREATE:
     case WM_CLOSE:
-      DestroyWindow(hwnd);
-      return 0;
-
     case WM_DESTROY:
-      PostQuitMessage(0 /* exit code */);
-      return 0;
-
-    case WM_PAINT:
-      paint_window(hwnd);
+      PostMessage(hWnd, Msg, wParam, lParam);
       return 0;
 
     default:
       /* fall back to the default window proc */
-      return DefWindowProc(hwnd, msg, wParam, lParam);
+      return DefWindowProc(hWnd, Msg, wParam, lParam);
   }
 }
 
@@ -70,7 +66,7 @@ int WINAPI wWinMain(HINSTANCE hInstance,
 {
   WNDCLASSW window_class = {}; /* zero initialise */
 
-  window_class.lpfnWndProc = &WndProc;
+  window_class.lpfnWndProc = &WindowProc;
   window_class.hInstance = hInstance;
   window_class.hIcon = LoadIcon(hInstance, IDI_APPLICATION);
   window_class.hCursor = LoadCursor(hInstance, IDC_ARROW);
@@ -130,11 +126,31 @@ int WINAPI wWinMain(HINSTANCE hInstance,
      */
     TranslateMessage(&msg);
 
-    /*
-     * Tell Windows to call the window procedure of the window
-     * that is the target of this message.
-     */
-    DispatchMessage(&msg);
+    switch (msg.message)
+    {
+      case WM_KEYDOWN:
+      case WM_CLOSE:
+        /* Triggers the WM_QUIT message which stops GetMessage */
+        PostQuitMessage(0 /* exit code */);
+        break;
+
+      case WM_DESTROY:
+        PostQuitMessage(0 /* exit code */);
+        break;
+
+      case WM_PAINT:
+        paint_window(msg.hwnd);
+        break;
+
+      default:
+        /* fall back to the default window proc */
+        DefWindowProc(
+          msg.hwnd,
+          msg.message,
+          msg.wParam,
+          msg.lParam);
+        break;
+    }
   }
 
   DestroyWindow(hwnd);
