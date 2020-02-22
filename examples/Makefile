@@ -8,16 +8,16 @@ simple/xlib.elf: simple/xlib.c Makefile
 simple_xlib: simple/xlib.elf
 	./$<
 
-blit_xlib.elf: blit_xlib.c Makefile
+blit/xlib.elf: blit/xlib.c Makefile
 	gcc -Wall $< -o $@ -lX11
 
-blit_xlib: blit_xlib.elf
+blit_xlib: blit/xlib.elf
 	./$<
 
-static_blit_xlib.elf: blit_xlib.c Makefile
+blit/static_xlib.elf: blit/xlib.c Makefile
 	gcc -Wall $< -o $@ -lX11 -DSTATIC_IMAGE_BLIT
 
-static_blit_xlib: blit_xlib.elf
+blit_static_xlib: blit/xlib.elf
 	./$<
 
 #
@@ -30,28 +30,22 @@ simple/xcb.elf: simple/xcb.c Makefile
 simple_xcb: simple/xcb.elf
 	./$<
 
-blit_direct_xcb.elf: blit_direct_xcb.c Makefile
+blit/direct_xcb.elf: blit/direct_xcb.c Makefile
 	gcc -Wall $< -o $@ -lX11 -lxcb
 
-blit_direct_xcb: blit_direct_xcb.elf
+blit_direct_xcb: blit/direct_xcb.elf
 	./$<
 
-blit_pixmap_xcb.elf: blit_pixmap_xcb.c Makefile
+blit/pixmap_xcb.elf: blit/pixmap_xcb.c Makefile
 	gcc -Wall $< -o $@ -lX11 -lxcb
 
-blit_pixmap_xcb: blit_pixmap_xcb.elf
+blit_pixmap_xcb: blit/pixmap_xcb.elf
 	./$<
 
-blit_pixmap_image_xcb.elf: blit_pixmap_xcb.c Makefile
+blit/pixmap_image_xcb.elf: blit/pixmap_xcb.c Makefile
 	gcc -Wall $< -o $@ -lX11 -lxcb -lxcb-image -DUSE_XCB_IMAGE
 
-blit_pixmap_image_xcb: blit_pixmap_image_xcb.elf
-	./$<
-
-xcb_test.elf: xcb_test.c Makefile
-	gcc -Wall $< -o $@ -lX11 -lxcb -lxcb-image -lxcb-icccm
-
-xcb_test: xcb_test.elf
+blit_pixmap_image_xcb: blit/pixmap_image_xcb.elf
 	./$<
 
 #
@@ -86,10 +80,10 @@ simple_win32: simple/win32.exe
 win32_console.o: win32_console.cpp win32_console.hpp Makefile
 	$(win32-g++) -Wall -c $< -o $@
 
-blit_win32.exe: blit_win32.cpp win32_console.o Makefile
+blit/win32.exe: blit/win32.cpp win32_console.o Makefile
 	$(win32-g++) -Wall $< win32_console.o -o $@
 
-blit_win32: blit_win32.exe
+blit_win32: blit/win32.exe
 	wine64 $<
 
 #
